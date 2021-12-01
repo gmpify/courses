@@ -1,0 +1,64 @@
+=== KUBERNETES ===
+
+$ kubectl version
+
+
+
+
+$ kubectl get componentstatuses
+
+$ kubectl get nodes
+
+$ kubectl describe nodes ip-10-0-22-182.ec2.internal
+
+$ ALPACA_POD=$(kubectl get pods -l app=alpaca -o jsonpath='{.items[0].metadata.name}')
+$ kubectl port-forward $ALPACA_POD 48858:8080
+
+$ kubectl get endpoints alpaca-prod --watch
+
+pods:
+  - smallest deployable unit
+  - group of containers to be deployed together
+
+nodes:
+  - instances/machines which kubernetes deploys pods to
+
+service:
+  - handles service discovery
+  - creates a virtual IP that translates to all pods belonging to this service
+  - relies on Readiness check to send traffic to a Pod
+
+endpoints:
+  - maps a service name to group of container IPs and ports
+
+deployments:
+  - conifguration to define state of pods
+  - how to distribute, number of replicas, where to allocate, etc
+
+in each kubernetes objects:
+  names:
+    - name of obkect
+  namespaces:
+    - virtual cluster
+    - to group mmultiple objects separately inside a cluster
+  labels:
+    - identify and grooup objects
+    - used to filter objects on selector
+  annotations:
+    - help automation tooling and client libraries
+
+heapster pod for autoscaling
+
+
+TODO:
+- check if DNS pods deployed on each node
+- check endpoints command if list different nodes
+- read into service CluterIP and NodePort differences
+- check service routing policy
+
+
+
+Load balancer points to instance on port exposed for deployment. (if chosen type LoadBalancer on Service)
+Kubernetes (I dont know if other parts) will make the routing internally
+
+reconciliation control loop -> used for ensuring the desired state matches the current actual state of a given resource
