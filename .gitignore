@@ -1,1 +1,8 @@
+#scala
 scala/**/target
+
+#python
+*.pyc
+
+#c
+a.out
